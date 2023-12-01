@@ -16,17 +16,6 @@ def isDigitValid(digit, pointer, increment, word):
     'e': 5,
     'n': 4
   }
-  numsDict = {
-    'one': '1',
-    'two': '2',
-    'three': '3',
-    'four': '4',
-    'five': '5',
-    'six': '6',
-    'seven': '7',
-    'eight': '8',
-    'nine': '9',
-  }
   
   if(digit in digitsTuple):
     return pointer, digit
@@ -43,14 +32,33 @@ def isDigitValid(digit, pointer, increment, word):
 
 
 def sumOfDigits(word):
-  pointer1 = 0
-  pointer2 = len(word) - 1
-  digit1, digit2 = None, None
-  while(digit1 == None or digit2 == None):
-    pointer1, digit1 = isDigitValid(word[pointer1], pointer1, True, word)
-    pointer2, digit2 = isDigitValid(word[pointer2], pointer2, False, word)
-      
-  return digit1 + digit2
+  digitsTuple = ('0','1','2','3','4','5','6','7','8','9')
+  startingNumberLetters = ['o', 't', 'f', 's', 'e', 'n']
+  numbersAsWords = ['one','two','three','four','five','six','seven','eight','nine']
+  numsDict = {
+    'one': '1',
+    'two': '2',
+    'three': '3',
+    'four': '4',
+    'five': '5',
+    'six': '6',
+    'seven': '7',
+    'eight': '8',
+    'nine': '9',
+  }
+  myList = []
+  for i in range(0,len(word)):
+    if word[i] in digitsTuple:
+      myList.append(word[i])
+    elif(word[i] in startingNumberLetters):
+      myStr = ''
+      for j in range(i, len(word)):
+        myStr += word[j]
+        if(myStr in numbersAsWords):
+          myList.append(numsDict[myStr])
+          break
+  return myList[0] + myList[len(myList) - 1]
+    
 
 textList = getArrayOfText()
 totalSum = 0
